@@ -211,8 +211,8 @@ class Music_Player_GUI(QMainWindow):
     def update_title(self):
         song_name = self.player.get_current_song_name()
         self.title_label.setText(song_name)
-        self.playlist_list.setCurrentItem(self.playlist_list.findItems(song_name,
-                                        Qt.MatchExactly)[0])
+        if self.playlist_list:
+            self.playlist_list.setCurrentItem(self.playlist_list.findItems(song_name, Qt.MatchExactly)[0])
         path = self.player.get_current_song_path()
         self.path_box.setText(path)
 

@@ -62,21 +62,23 @@ class Music_Player():
         self.current_song_index = 0
 
     def next(self):
-        self.current_song_index = (self.current_song_index + 1) % len(self.current_playlist)
+        if len(self.current_playlist) > 0:
+            self.current_song_index = (self.current_song_index + 1) % len(self.current_playlist)
 
-        if self.playing:
-            self.stop()
-            self.play()
+            if self.playing:
+                self.stop()
+                self.play()
 
     def skip_to_song(self, index):
         self.current_song_index = index % len(self.current_playlist)
 
     def previous(self):
-        self.current_song_index = (self.current_song_index - 1) % len(self.current_playlist)
+        if len(self.current_playlist) > 0:
+            self.current_song_index = (self.current_song_index - 1) % len(self.current_playlist)
 
-        if self.playing:
-            self.stop()
-            self.play()
+            if self.playing:
+                self.stop()
+                self.play()
 
     def stop(self):
         self.player.stop()
@@ -84,22 +86,23 @@ class Music_Player():
 
     def play(self):
 
-        if self.playing == False:
-            song_name = self.current_playlist[self.current_song_index]
-            song = self.song_dictionary[song_name]
+        if self.current_playlist:
+            if self.playing == False:
+                song_name = self.current_playlist[self.current_song_index]
+                song = self.song_dictionary[song_name]
 
-            if self.is_online == True:
-                song = yt_stream(song)
+                if self.is_online == True:
+                    song = yt_stream(song)
 
-            media = self.vlcInstance.media_new(song)
-            media.get_mrl()
-            self.player.set_media(media)
-            self.player.play()
-            self.playing = True
-            time.sleep(1)
+                media = self.vlcInstance.media_new(song)
+                media.get_mrl()
+                self.player.set_media(media)
+                self.player.play()
+                self.playing = True
+                time.sleep(1)
 
-        else:
-            self.player.pause()
+            else:
+                self.player.pause()
 
     def get_duration(self):
         song_duration = self.player.get_length()/1000
@@ -138,9 +141,14 @@ class Music_Player():
         return song.split('/')[-1][:-4]
 
     def get_current_song_name(self):
+        if not self.current_playlist:
+            return ""
         return self.current_playlist[self.current_song_index]
 
     def get_current_song_path(self):
+        if not self.current_playlist:
+            return ""
+
         song_name = self.current_playlist[self.current_song_index]
         song = self.song_dictionary[song_name]
         return song
