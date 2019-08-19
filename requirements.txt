@@ -5,3 +5,5 @@ pafy
 lxml
 beautifulsoup4
 youtube-dl
+Cython
+pyyaml
