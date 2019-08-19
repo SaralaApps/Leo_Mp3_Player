@@ -1,0 +1,7 @@
+python-vlc
+PyQt5
+urllib3
+pafy
+lxml
+beautifulsoup4
+youtube-dl
