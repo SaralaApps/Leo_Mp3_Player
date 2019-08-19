@@ -1,0 +1,5 @@
+#!/opt/intel/intelpython3/bin/ python2
+
+from leomp3 import leomp3
+
+leomp3.main()
