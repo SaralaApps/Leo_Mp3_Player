@@ -3,6 +3,7 @@ import time
 import os
 import random
 import sys
+import platform
 
 from vlc import State, Instance
 from PyQt5.QtWidgets import QApplication
@@ -138,7 +139,10 @@ class Music_Player():
     def get_song_name(self, song):
         # if (song.startswith('https://www.youtube.com/watch')):
         #     return yt_get_title(song)
-        return song.split('/')[-1][:-4]
+        if platform.system() == 'Windows':
+            return song.split('\\')[-1][:-4]
+        else:
+            return song.split('/')[-1][:-4]
 
     def get_current_song_name(self):
         if not self.current_playlist:
