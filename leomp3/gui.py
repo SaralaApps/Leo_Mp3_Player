@@ -279,8 +279,6 @@ class Music_Player_GUI(QMainWindow):
     def reload_playlist(self):
         self.player.create_playlist()
         self.update_playlist()
-        self.stop_song()
-        self.update_title()
 
     def play_clicked_song(self, song):
         song_id = self.playlist_list.indexFromItem(song).row()
@@ -329,8 +327,6 @@ class Music_Player_GUI(QMainWindow):
     def finished_online_search(self):
         # self.player.create_online_dictionary(song_name)
         self.update_playlist()
-        self.stop_song()
-        self.update_title()
         self.online_search_complete = False
         self.search_button.setEnabled(True)
         self.search_button.setText("Search Online")
